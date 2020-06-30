@@ -6,7 +6,7 @@ let lastUpdateId = undefined;
 const getMsg = (update) => {
     const text = update && update.message && update.message.text || "";
     let answer = "idk";
-    if (text.search(/lol/)) {
+    if (text.search(/lol/) !== -1) {
         answer = "lol";
     } else if (text === "/start") {
         answer = "hello";
