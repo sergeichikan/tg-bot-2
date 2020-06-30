@@ -4,15 +4,17 @@ import { sendMessage } from "./send-message.js";
 let lastUpdateId = undefined;
 
 const getMsg = (update) => {
-    const text = update && update.message && update.message.text;
+    const text = update && update.message && update.message.text || "";
     let answer = "idk";
-    if (text === "/start") {
+    if (text.search(/lol/)) {
+        answer = "lol";
+    } else if (text === "/start") {
         answer = "hello";
     } else if (text === "you bot?") {
         answer = "yes";
     }
     return {
-        chat_id: update.message.chat.id,
+        chat_id: update.message.chat && update.message.chat.id || 0,
         text: answer,
     };
 };
@@ -33,6 +35,7 @@ const main = async (offset) => {
     for (const update of result) {
         // console.log(update.update_id, update.message.text);
         console.log(update.message);
+        update.message = update.message || {text: ""};
         // const msg = {
         //     chat_id: update.message.chat.id,
         //     text: "hello",
